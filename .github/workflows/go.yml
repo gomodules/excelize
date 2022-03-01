@@ -13,26 +13,26 @@ jobs:
 
     steps:
 
-    - name: Install Go
-      uses: actions/setup-go@v2
-      with:
-        go-version: ${{ matrix.go-version }}
+      - name: Install Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: ${{ matrix.go-version }}
 
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Get dependencies
-      run: |
-        env GO111MODULE=on go vet ./...
-    - name: Build
-      run: go build -v .
+      - name: Get dependencies
+        run: |
+          env GO111MODULE=on go vet ./...
+      - name: Build
+        run: go build -v .
 
-    - name: Test
-      run: env GO111MODULE=on go test -v -timeout 30m -race ./... -coverprofile=coverage.txt -covermode=atomic
+      - name: Test
+        run: env GO111MODULE=on go test -v -timeout 30m -race ./... -coverprofile=coverage.txt -covermode=atomic
 
-    - name: Codecov
-      uses: codecov/codecov-action@v2
-      with:
-        file: coverage.txt
-        flags: unittests
-        name: codecov-umbrella
+      - name: Codecov
+        uses: codecov/codecov-action@v2
+        with:
+          file: coverage.txt
+          flags: unittests
+          name: codecov-umbrella
